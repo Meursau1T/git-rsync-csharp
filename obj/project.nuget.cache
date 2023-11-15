@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "dc1n9RzK4gqBILZp181TnmMAbp+TCCVrzqRotajEG8HE7NeYI6dW8yTEYGKLVwUaGpUdJpy5V/i062osgQLU+w==",
+  "success": true,
+  "projectFilePath": "/home/meursault/source/rsync-g/rsync-g.csproj",
+  "expectedPackageFiles": [
+    "/home/meursault/.nuget/packages/system.commandline/2.0.0-beta4.22272.1/system.commandline.2.0.0-beta4.22272.1.nupkg.sha512"
+  ],
+  "logs": []
+}
