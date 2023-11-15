@@ -25,7 +25,11 @@ List<string> runCmd(string cmd, string arg) {
 
 List<string> asyncByLog(List<string> currEdit) {
     var logPath = "/tmp/rsync-git";
-    var lastEdit = File.ReadLines(logPath);
+    var lastEdit = File.ReadLines(logPath).ToList();
+    Console.WriteLine("Curr edit files:");
+    currEdit.ForEach(item => Console.WriteLine(item));
+    Console.WriteLine("Last edit files:");
+    lastEdit.ForEach(item => Console.WriteLine(item));
     File.WriteAllLines(logPath, currEdit);
     List<string> bothEdit = new List<string>();
     bothEdit.AddRange(currEdit);
@@ -48,13 +52,13 @@ string getDir(string path) {
   }
 }
 
-void callRsync(string path, string localPath, string remotePath, string userIp, string rsyncParam) {
+void callRsync(string path, string localPath, string remotePath, string userIp, string rsyncParam, bool showLog) {
   var origPath = $"{localPath}/{path}";
   var tgtPath = getDir($"{userIp}:{remotePath}/{path}");
   var cmd = $"-av{rsyncParam}";
   Console.WriteLine($"cmd: rsync {cmd} {origPath} {tgtPath}");
   var runRes = runCmd("rsync", $"{cmd} {origPath} {tgtPath}");
-  if (rsyncParam.Contains("n")) {
+  if (rsyncParam.Contains("n") || showLog) {
     Console.WriteLine("Rsync result:");
     runRes.ForEach(item => Console.WriteLine(item));
   }
@@ -66,7 +70,7 @@ var remotePath = new Option<string>(name: "-r", description: "Remote path of tar
 var userIp = new Option<string>(name: "-u", description: "Remote server ip address") { IsRequired = true };
 var rsyncParam = new Option<string>(name: "-p", description: "Additional params of rsync", getDefaultValue: () => "");
 var disableGit = new Option<bool>(name: "-d", description: "Disable sync .git folder", getDefaultValue: () => true);
-var showLog = new Option<bool>(name: "-v", description: "Show log", getDefaultValue: () => false);
+var showLog = new Option<bool>(name: "-v", description: "Show log", getDefaultValue: () => true);
 
 rootCommand.AddOption(localPath);
 rootCommand.AddOption(remotePath);
@@ -79,13 +83,13 @@ rootCommand.SetHandler((localPath, remotePath, userIp, rsyncParam, disableGit, s
   var currEditFiles = asyncByLog(getGitEdit());
   var currEditDirs = currEditFiles.Distinct().ToList();
   if (showLog) {
-    Console.WriteLine("Rsync dir list:");
+    Console.WriteLine("Rsync final dir list:");
     currEditDirs.ForEach(item => Console.WriteLine(item));
   }
-  currEditDirs.ForEach(item => callRsync(item, localPath, remotePath, userIp, rsyncParam));
+  currEditDirs.ForEach(item => callRsync(item, localPath, remotePath, userIp, rsyncParam, showLog));
   Console.WriteLine($"disableGit:{disableGit}");
   if (!disableGit) {
-    callRsync(".git", localPath, remotePath, userIp, rsyncParam);
+    callRsync(".git", localPath, remotePath, userIp, rsyncParam, showLog);
   }
 }, localPath, remotePath, userIp, rsyncParam, disableGit, showLog);
 
