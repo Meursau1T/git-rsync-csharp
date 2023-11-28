@@ -25,6 +25,11 @@ List<string> runCmd(string cmd, string arg) {
 
 List<string> asyncByLog(List<string> currEdit) {
     var logPath = "/tmp/rsync-git";
+    if (!File.Exists(logPath)) {
+      Console.WriteLine("File doesn't exist. Created a new one.");
+      var fs = File.Create(logPath);
+      fs.Close();
+    }
     var lastEdit = File.ReadLines(logPath).ToList();
     Console.WriteLine("Curr edit files:");
     currEdit.ForEach(item => Console.WriteLine(item));
