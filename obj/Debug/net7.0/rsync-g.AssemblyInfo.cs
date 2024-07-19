@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("rsync-g")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17daf8c80e3ff45e77731c7d0dbd18ecf794bc96")]
 [assembly: System.Reflection.AssemblyProductAttribute("rsync-g")]
 [assembly: System.Reflection.AssemblyTitleAttribute("rsync-g")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

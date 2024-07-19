@@ -59,10 +59,10 @@ string getDir(string path) {
 
 void callRsync(string path, string localPath, string remotePath, string userIp, string rsyncParam, bool showLog) {
   var origPath = $"{localPath}/{path}";
-  var tgtPath = getDir($"{userIp}:{remotePath}/{path}");
+  var tgtPath = getDir($"{userIp}:{remotePath}/{path.Replace("[", "\\[").Replace("]", "\\]")}");
   var cmd = $"-av{rsyncParam}";
-  Console.WriteLine($"cmd: rsync {cmd} {origPath} {tgtPath}");
-  var runRes = runCmd("rsync", $"{cmd} {origPath} {tgtPath}");
+  Console.WriteLine($"cmd: rsync {cmd} \"{origPath}\" \"{tgtPath}\"");
+  var runRes = runCmd("rsync", $"{cmd} \"{origPath}\" \"{tgtPath}\"");
   if (rsyncParam.Contains("n") || showLog) {
     Console.WriteLine("Rsync result:");
     runRes.ForEach(item => Console.WriteLine(item));

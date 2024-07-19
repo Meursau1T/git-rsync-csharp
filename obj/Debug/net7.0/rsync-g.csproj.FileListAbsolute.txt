@@ -27,4 +27,5 @@
 /home/meursault/source/rsync-g/bin/Debug/net7.0/zh-Hans/System.CommandLine.resources.dll
 /home/meursault/source/rsync-g/bin/Debug/net7.0/zh-Hant/System.CommandLine.resources.dll
 /home/meursault/source/rsync-g/obj/Debug/net7.0/rsync-g.csproj.AssemblyReference.cache
-/home/meursault/source/rsync-g/obj/Debug/net7.0/rsync-g.csproj.CopyComplete
+/home/meursault/source/rsync-g/obj/Debug/net7.0/rsync-g.sourcelink.json
+/home/meursault/source/rsync-g/obj/Debug/net7.0/rsync-g.csproj.Up2Date
